@@ -21,8 +21,7 @@ void setup() {
   // pinMode(10, OUTPUT); // ENB
 }
 
-
-void Stop() {              //function of stop
+void stop() {              //function of stop
   digitalWrite(motor1pin1, LOW);
   digitalWrite(motor1pin2, LOW);
   digitalWrite(motor2pin1, LOW);
@@ -45,17 +44,17 @@ void reverse(){
 }
 
 void turn_right(){
-  analogWrite(motor1pin1, 110);
-  analogWrite(motor1pin2, 0);
+  analogWrite(motor1pin1, 0);
+  analogWrite(motor1pin2, 110);
   analogWrite(motor2pin1, 0);
-  analogWrite(motor2pin2, 101);
+  analogWrite(motor2pin2, 0);//120);
 }
 
 void turn_left(){
   analogWrite(motor1pin1, 0);
-  analogWrite(motor1pin2, 110); 
-  analogWrite(motor2pin1, 105);
-  analogWrite(motor2pin2, 0);
+  analogWrite(motor1pin2, 0);//110); 
+  analogWrite(motor2pin1, 0);
+  analogWrite(motor2pin2, 109);
 }
 
 void loop() {
@@ -64,7 +63,17 @@ void loop() {
   //forward();
   //reverse();
   turn_left();
-  delay(150);
-
+  Serial.println("turning left");
+  delay(500);
+  stop();
+  Serial.println("I am stopped");
+  delay(1000);
+  turn_right();
+  Serial.println("turning right");
+  delay(500);
+  stop();
+  Serial.println("I am stopped");
+  delay(1000);
+  
 }
 
