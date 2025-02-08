@@ -8,47 +8,74 @@
 
 #include <ezButton.h>
 
-#define VRX_PIN  A1 // Arduino pin connected to VRX pin
-#define VRY_PIN  A0 // Arduino pin connected to VRY pin
-#define SW_PIN   2  // Arduino pin connected to SW  pin
+#define VRX_PINL  A1 // Arduino pin connected to VRX pin
+#define VRY_PINL  A0 // Arduino pin connected to VRY pin
+#define SW_PINL   2  // Arduino pin connected to SW  pin
 
-ezButton button(SW_PIN);
+#define VRX_PINR  A2 // Arduino pin connected to VRX pin
+#define VRY_PINR  A3 // Arduino pin connected to VRY pin
+#define SW_PINR   4  // Arduino pin connected to SW  pin
 
-int xValue = 0; // To store value of the X axis
-int yValue = 0; // To store value of the Y axis
-int bValue = 0; // To store value of the button
+ezButton button1(SW_PINL);
+ezButton button2(SW_PINR);
+
+int xValueL = 0; // To store value of the X axis
+int yValueL = 0; // To store value of the Y axis
+int bValueL = 0; // To store value of the button
+
+int xValueR = 0; // To store value of the X axis
+int yValueR = 0; // To store value of the Y axis
+int bValueR = 0; // To store value of the button
 
 void setup() {
   Serial.begin(9600) ;
-  button.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button1.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button2.setDebounceTime(50); // set debounce time to 50 milliseconds
 }
 
 void loop() {
-  button.loop(); // MUST call the loop() function first
+  button1.loop(); // MUST call the loop() function first
+  button2.loop(); // MUST call the loop() function first
 
   // read analog X and Y analog values
-  xValue = analogRead(VRX_PIN);
-  yValue = analogRead(VRY_PIN);
+  xValueL = analogRead(VRX_PINL);
+  yValueL = analogRead(VRY_PINL);
+
+  xValueR = analogRead(VRX_PINR);
+  yValueR = analogRead(VRY_PINR);
 
   // Read the button value
-  bValue = button.getState();
+  bValueL = button1.getState();
+  bValueR = button2.getState();
 
-  if (button.isPressed()) {
-    Serial.println("The button is pressed");
-    // TODO do something here
-  }
+  // if (button1.isPressed()) {
+  //   Serial.println("The button is pressed");
+  //   // TODO do something here
+  // }
 
-  if (button.isReleased()) {
-    Serial.println("The button is released");
-    // TODO do something here
-  }
+  // if (button1.isReleased()) {
+  //   Serial.println("The button is released");
+  //   // TODO do something here
+  // }
 
   // print data to Serial Monitor on Arduino IDE
-  Serial.print("x = ");
-  Serial.print(xValue);
-  Serial.print(", y = ");
-  Serial.print(yValue);
-  Serial.print(" : button = ");
-  Serial.println(bValue);
+  Serial.print("xL = ");
+  Serial.print(xValueL);
+  Serial.print(", yL = ");
+  Serial.print(yValueL);
+  Serial.print(" : buttonL = ");
+  Serial.print(bValueL);
+
+  Serial.print("   |   ");
+
+  Serial.print("xR = ");
+  Serial.print(xValueR);
+  Serial.print(", yR = ");
+  Serial.print(yValueR);
+  Serial.print(" : buttonR = ");
+  Serial.println(bValueR);
+
+  delay(100);
 }
+
 
