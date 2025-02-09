@@ -137,6 +137,18 @@ void loop() {
     LmotorFspeed = 0;
     RmotorBspeed = 0;
     RmotorFspeed = 0;
+    if (Rcom_dir == 1 || Rcom_dir == 5 || Rcom_dir == 9) {
+      LmotorBspeed = 0;
+      LmotorFspeed = 0;
+      RmotorBspeed = 0;
+      RmotorFspeed = 110;
+    }
+    else if (Rcom_dir == 2 || Rcom_dir == 6 || Rcom_dir == 10) {
+      LmotorBspeed = 0;
+      LmotorFspeed = 135;
+      RmotorBspeed = 0;
+      RmotorFspeed = 0;
+    }
   }
 
   if (Lcom_dir >= 4 && Lcom_dir <= 6) {
