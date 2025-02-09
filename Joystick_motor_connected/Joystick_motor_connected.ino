@@ -48,7 +48,8 @@ int xValueR = 0; // To store value of the X axis
 int yValueR = 0; // To store value of the Y axis
 int bValueR = 0; // To store value of the button
 int Rcommand = COMMAND_NO;
-int LmotorBspeed = 0;
+
+int LmotorBspeed = 0;  // Motor speeds
 int LmotorFspeed = 0;
 int RmotorBspeed = 0;
 int RmotorFspeed = 0;
@@ -124,26 +125,26 @@ void loop() {
   // writeJoyDirection (Lcommand, Rcommand);
   // writeJoyValue(xValueL,yValueL,bValueL,xValueR,yValueR,bValueR);
 
- int Lcom_dir = Lcommand % 0x10;
+ int Lcom_dir = Lcommand % 0x10;  // Just get the direction
  int Rcom_dir = Rcommand % 0x10;
- int Lbutton = Lcommand / 0x10;
+ int Lbutton = Lcommand / 0x10;  // Just get the button status
  int Rbutton = Rcommand / 0x10;
 
 //  Serial.print(Lcom_dir);
 //  Serial.println("  " + Rcom_dir);
 
-  if (Lcom_dir == 0) {
+  if (Lcom_dir == 0) { // when the left joystick is not moved
     LmotorBspeed = 0;
     LmotorFspeed = 0;
     RmotorBspeed = 0;
     RmotorFspeed = 0;
-    if (Rcom_dir == 1 || Rcom_dir == 5 || Rcom_dir == 9) {
+    if (Rcom_dir == 1 || Rcom_dir == 5 || Rcom_dir == 9) { // turn left
       LmotorBspeed = 0;
       LmotorFspeed = -110;
       RmotorBspeed = 0;
       RmotorFspeed = 110;
     }
-    else if (Rcom_dir == 2 || Rcom_dir == 6 || Rcom_dir == 10) {
+    else if (Rcom_dir == 2 || Rcom_dir == 6 || Rcom_dir == 10) { // turn right
       LmotorBspeed = 0;
       LmotorFspeed = 125;
       RmotorBspeed = 0;
@@ -151,36 +152,36 @@ void loop() {
     }
   }
 
-  if (Lcom_dir >= 4 && Lcom_dir <= 6) {
+  if (Lcom_dir >= 4 && Lcom_dir <= 6) { // when the left joystick is moving up
     LmotorBspeed = 0;
     LmotorFspeed = 185;
     RmotorBspeed = 0;
     RmotorFspeed = 170;
-    if (Rcom_dir == 1 || Rcom_dir == 5 || Rcom_dir == 9) {
+    if (Rcom_dir == 1 || Rcom_dir == 5 || Rcom_dir == 9) { // turn left
       LmotorBspeed = 0;
       LmotorFspeed -= 20;
       RmotorBspeed = 0;
       RmotorFspeed += 30;
     }
-    else if (Rcom_dir == 2 || Rcom_dir == 6 || Rcom_dir == 10) {
+    else if (Rcom_dir == 2 || Rcom_dir == 6 || Rcom_dir == 10) { // turn right
       LmotorBspeed = 0;
       LmotorFspeed += 30;
       RmotorBspeed = 0;
       RmotorFspeed -= 20;
     }
  }
-  else if (Lcom_dir >= 8 && Lcom_dir <= 10) {
+  else if (Lcom_dir >= 8 && Lcom_dir <= 10) { // when the left joystick is moving down
     LmotorBspeed = 185;
     LmotorFspeed = 0;
     RmotorBspeed = 170;
     RmotorFspeed = 0;
-    if (Rcom_dir == 1 || Rcom_dir == 5 || Rcom_dir == 9) {
+    if (Rcom_dir == 1 || Rcom_dir == 5 || Rcom_dir == 9) { // turn left
       LmotorFspeed = 0;
       LmotorBspeed -= 20;
       RmotorFspeed = 0;
       RmotorBspeed += 30;
     }
-    else if (Rcom_dir == 2 || Rcom_dir == 6 || Rcom_dir == 8) {
+    else if (Rcom_dir == 2 || Rcom_dir == 6 || Rcom_dir == 8) { // turn right
       LmotorFspeed = 0;
       LmotorBspeed += 30;
       RmotorFspeed = 0;
